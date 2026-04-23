@@ -31,13 +31,16 @@ app.use("/portfolio", portfolioRoutes);
 app.get("/", async (req, res) => {
 
     let users = [];
-   try {
-        users = await getAllUsers();
-    } catch (error) {
-        console.error(error);
-        return res.status(500).send("Error de base de datos");
-    }
-    
+try {
+    users = await Promise.race([
+        getAllUsers(),
+        new Promise((_, reject) =>
+            setTimeout(() => reject(new Error("Timeout DB")), 2000)
+        )
+    ]);
+} catch (error) {
+    console.error(error);
+}
 
     let user = null;
 
