@@ -8,5 +8,5 @@ return await mysql.createPool({
   ssl: {
     rejectUnauthorized: false
   }
+  });
 }
-});
