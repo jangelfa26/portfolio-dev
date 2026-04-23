@@ -1,4 +1,4 @@
-import { getConnection } from "../db/connection.js";
+import connection from "../db/connection.js";
 
 export async function createUser(username, password, email) {
     await connection.execute(
@@ -24,11 +24,9 @@ export async function getUserById(id) {
 }
 
 export async function getAllUsers() {
-    const conn = await getConnection();
-    const [rows] = await conn.execute(
+        const [rows] = await conn.execute(
         "SELECT id, username, bio, photo, email FROM users"
     );
-    await conn.end();
     return rows;
 }
 
