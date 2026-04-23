@@ -24,7 +24,7 @@ export async function getUserById(id) {
 }
 
 export async function getAllUsers() {
-        const [rows] = await conn.execute(
+        const [rows] = await connection.execute(
         "SELECT id, username, bio, photo, email FROM users"
     );
     return rows;
